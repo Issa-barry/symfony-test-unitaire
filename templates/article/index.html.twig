@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% import 'extra/btn.html.twig' as btn %}
+{% import 'extra/badge.html.twig' as badge %}
+
+
+{% block title %}Article index{% endblock %}
+
+{% block body %}
+    <h1>Article index</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>State</th>
+                <th class="text-end">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.id }}</td>
+                <td>{{ article.name }}</td>
+                <td>{{ article.description }}</td>
+                <td>{{ article.category }}</td>
+                <td>{{ article.price }}</td>
+                <td>{{ badge.article_state(article) }}</td>
+                <td class="text-end">
+                    <div class="btn-group" role="group" aria-label="Basic example">                   
+                        {{ btn.simple(path('article_show', {'id': article.id}), "primary", "Show", "ROLE_READ_ARTICLE", article) }}
+                        {{ btn.simple(path('article_edit', {'id': article.id}), "success", "Edit", "ROLE_UPDATE_ARTICLE", article) }}
+                        {{ btn.simple(path('article_delete', {'id': article.id}), "danger", "Delete", "ROLE_DELETE_ARTICLE", article) }}
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="{{ path('article_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base-clean.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/signin.css") }}">
+{% endblock %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+  
+
+
+    <main class="form-signin">
+        <form method="post">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+              {% for flash in app.flashes('success') %}
+                <div class="alert alert-success" role="alert">{{ flash }}</div>
+            {% endfor %}
+
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="mb-3">
+                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+
+            <div class="form-floating">
+                <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" autocomplete="off">
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" autocomplete="off">
+                <label for="floatingPassword">Password</label>
+            </div>
+            {#
+                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                See https://symfony.com/doc/current/security/remember_me.html
+
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" name="_remember_me" value="remember-me"> Remember me
+                    </label>
+                </div>
+            #}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+        </form>
+    </main>
+{% endblock %}
