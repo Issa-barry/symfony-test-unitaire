@@ -3,9 +3,12 @@
 namespace App\Form;
 
 use App\Entity\User;
+// use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,15 +21,39 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName')
-            ->add('lastName')
-            ->add('email')
-            ->add('agreeTerms', CheckboxType::class, [
+        ->add('firstName', TextType::class, [
+            'attr' =>  [
+                'placeholder' => 'John..',
+            ],
+            'row_attr' => [
+                'class' =>'form-floating'
+            ]
+        ])
+        ->add('lastName', TextType::class, [
+            'attr' =>  [
+                'placeholder' => 'Smith..',
+            ],
+            'row_attr' => [
+                'class' =>'form-floating'
+            ]
+        ])
+        ->add('email', EmailType::class, [
+            'attr' =>  [
+                'placeholder' => 'jog.smith@gmail.com',
+            ],
+            'row_attr' => [
+                'class' =>'form-floating'
+            ]
+        ])
+        ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
                     ]),
+                ],
+                'row_attr' => [
+                    'class' =>'form-floating'
                 ],
             ])
             ->add('plainPassword', RepeatedType::class, [
@@ -34,7 +61,13 @@ class RegistrationFormType extends AbstractType
                 "type" => PasswordType::class,
                 "first_options" => [
                     "label" => "Password",
-                    'attr' => ['autocomplete' => 'new-password'],
+                    'attr' => [
+                        'placeholder' => '*******',
+                        'autocomplete' => 'new-password'
+                    ],
+                    'row_attr' => [
+                        'class' =>'form-floating'
+                    ],
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Please enter a password',
@@ -47,7 +80,15 @@ class RegistrationFormType extends AbstractType
                     ],
                 ],
                 "second_options" => [
-                    "label" => "Confirm password"
+                    "label" => "Confirm password",
+                    'attr' =>[
+                        'placeholder' => '******',
+                        'autocomplete' => 'new-password'
+                    ],
+                    'row_attr' => [
+                        'class' =>'form-floating'
+                    ]
+
                 ]
             ]);
     }

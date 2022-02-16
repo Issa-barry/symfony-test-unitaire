@@ -1,0 +1,5 @@
+services:
+    validators.alias:
+        alias: validator
+        public: true      # Automatically injects dependencies in your services.
+        

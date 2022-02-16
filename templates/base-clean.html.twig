@@ -17,7 +17,11 @@
         {% endblock %}
     </head>
     <body class="text-center">
-        {% block body %}{% endblock %}
+    {{ include('layout/header.html.twig') }}
+         <div class="container">
+          {% block body %}{% endblock %}
+         </div>
+     {{ include('layout/footer.html.twig') }} 
         <script src="{{ asset("js/bootstrap.min.js") }}"></script>
     </body>
 </html>

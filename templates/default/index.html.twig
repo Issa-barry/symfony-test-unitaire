@@ -1,22 +1,78 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello DefaultController!{% endblock %}
+{% block stylesheets %}
+   <style> 
+       .cards {
+    list-style: none;
+    padding: 0;
+  }
+  .cards li{
+    display: none;
+  }
+  .cards li active{
+    display: block;
+  }
+  .bi {
+    user-select: none;
+    cursor: pointer;
+  }
+  .slider {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+   </style>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+     {# var listArticles =  document.querySelector('.cards li'); #}
+     var btnPrev = document.querySelector('#btn-prev');
+     var btnNext = document.querySelector('#btn-next');
+
+     btnPrev.addEventListener("click", prevAction);
+     btnNext.addEventListener("click", nextAction);
+
+
+  listArticles[0].className = "active";
+
+
+  function prevAction() {
+   let active = findActive(listArticles);
+   listArticles[active].className = "";
+   if(--active <= -1)
+   {
+     active = listArticles.length - 1;
+   }
+}
+  function nextAction() {
+   console.log("bonjour")
+}
+
+
+    
+    </script>
+ {% endblock %}
 
 {% block body %}
+<div class="slider">
+   <ul class="cards"> 
+     {% for article in articles %}
 
-{{ dump(app.user) }}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/src/Controller/DefaultController.php'|file_link(0) }}">src/Controller/DefaultController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/templates/default/index.html.twig'|file_link(0) }}">templates/default/index.html.twig</a></code></li>
-    </ul>
+      <li class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{article.name}} </h5>
+            <h6 class="card-subtitle mb-2 text-muted">Price: {{article.price}} </h6>
+            <p class="card-text">{{article.description|slice(0, 100)}}.... </p>
+            <a href="{{path('home_article_show', {'id':article.id})}}" class=" ">Voire plus </a>
+          </div>
+      </li>
+      {% endfor %}
+   </ul>
+         
+      <span> <i id="btn-prev" class="bi bi-arrow-left-circle-fill"></i>  </span>
+      <span> <i id="btn-next" class="bi bi-arrow-right-circle-fill"></i> </span>
 </div>
 {% endblock %}

@@ -10,9 +10,9 @@
   
 
 
-    <main class="form-signin">
+    <main class="form-signin mt-3">
         <form method="post">
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <h1 class="h3 mb-3 fw-normal my-5">Please sign in</h1>
               {% for flash in app.flashes('success') %}
                 <div class="alert alert-success" role="alert">{{ flash }}</div>
             {% endfor %}
@@ -27,11 +27,11 @@
                 </div>
             {% endif %}
 
-            <div class="form-floating">
+            <div class="form-floating mt-3">
                 <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" autocomplete="off">
                 <label for="floatingInput">Email address</label>
             </div>
-            <div class="form-floating">
+            <div class="form-floating mt-3">
                 <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" autocomplete="off">
                 <label for="floatingPassword">Password</label>
             </div>
@@ -48,6 +48,9 @@
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
 
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <div class="mt-2">
+            Create account here <a href="{{path('app_register')}}">Register</a>
+            </div>
             <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
         </form>
     </main>

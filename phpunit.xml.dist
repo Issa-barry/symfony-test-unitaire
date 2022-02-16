@@ -29,6 +29,10 @@
         </include>
     </coverage>
 
+    <report>
+       <html outputDirectory="html-coverage" lowUpperBound="50" highLowerBound="90"/>
+    </report>
+
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
@@ -39,4 +43,10 @@
         <extension class="Symfony\Component\Panther\ServerExtension" />
     </extensions>
     -->
+
+    <logging>
+      <junit outputFile="./report/junit.xml"/>
+      <testdoxText outputFile="./report/testdox.txt"/>
+      <text outputFile="./report/logFile.txt"/>
+    </logging>
 </phpunit>
